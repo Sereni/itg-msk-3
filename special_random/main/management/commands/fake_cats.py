@@ -8,14 +8,11 @@ class Command(BaseCommand):
 
     # @transaction.commit_manually()
     def handle(self, *args, **options):
-        cats = ['My', 'Neko Atsume', 'Pusheen']
-        for cat in cats:
+        cats = ['Pewpew', 'Neko Atsume', 'AmikPusheen']
+        for num, cat in enumerate(cats):
             p = Player(username=cat)
-            if cat == 'My':
-                binary = open('fake/' + cat + '.jpg').read()
-            else:
-                binary = open('fake/' + cat + '.png').read()
-            p.photo.save('{0}.png'.format(cat),
+            binary = open('fake/' + str(num+1) + '.jpg').read()
+            p.photo.save('{0}.jpg'.format(cat),
                                                ContentFile(binary))
             p.save()
         # try :

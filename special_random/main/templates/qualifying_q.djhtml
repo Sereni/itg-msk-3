@@ -2,49 +2,54 @@
 
 {% block content %}
 
-<!--<h1 class="text-center supra">Отборочный {{ diff }}</h1>-->
-<!--<hr>-->
 
 <div class="container">
+    <div class="row">
     <ul class="thumbnails">
-                <li class="span12 text-center">
-                    <div class="thumbnail">
+                <div class="col-md-12 text-center">
+                    <div class="img-thumbnail">
                             <img src="{{ song.banner.url }}">
-    <p class="lead text-center">{{ song.author }} - {{ song.name }} ({{ song.min_bpm }}-{{ song.max_bpm }})</p>
+    <p class="lead text-center">{{ song.name }}</p>
                     </div>
-                </li>
+                </div>
     </ul>
+    </div>
 
-    <ul class="thumbnails">
+    <div class="row">
         {% if q.player_vs %}
-                <li class="span5 text-center">
+                <div class="col-md-3 col-md-offset-2">
         {% else %}
-                <li class="span12 text-center">
+                <div class="col-md-4 col-md-offset-4 text-center">
         {% endif %}
 
-                    <div class="thumbnail">
-                            <img src="{{ q.player.photo.url }}">
+                    <div>
+                            <img class="img-rounded" width="300px" height="300px" src="{{ q.player.photo.url }}">
     <p class="lead text-center">{{ q.player }}</p>
                     </div>
-                </li>
+                </div>
 
         {% if q.player_vs %}
-                <li class="span2 text-center">
-                    <h2>VS</h2>
-                </li>
+                <div class="col-md-1 col-md-offset-1">
+                   <h2>VS</h2>
+                </div>
 
-                <li class="span5 text-center">
-                    <div class="thumbnail">
-                            <img src="{{ q.player_vs.photo.url }}">
+                <div class="col-md-3 ">
+                    <div>
+                            <img class="img-rounded" width="300px" height="300px" src="{{ q.player_vs.photo.url }}">
     <p class="lead text-center">{{ q.player_vs }}</p>
                     </div>
-                </li>
+                </div>
         {% endif %}
 
-    </ul>
+    </div>
     {% if next %}
-        <hr>
-    <h3><a href="/qualifying_q/{{ diff }}/{{ next.pk }}">Готовятся:</a>  {{ next.player}} {{ next.player_vs|default_if_none:"" }}</h3>
+        <div class="row">
+            <div class="col-md3 col-md-offset-5">
+                <h3>
+            <a class="btn btn-lg btn-info" href="/qualifying_q/{{ diff }}/{{ next.pk }}">Затем</a>  {{ next.player}} {{ next.player_vs|default_if_none:"" }}
+                    </h3>
+            </div>
+        </div>
     {% endif %}
 
 </div>

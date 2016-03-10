@@ -2,22 +2,36 @@
 
 {% block content %}
 
-<h1 class="text-center supra">Приветики</h1>
-<hr>
+<h1 class="text-center">ITG MSK 3</h1>
 
-<h3 class="text-center supra2">
-    <p><a></a></p>
-<p><a href="/qualifying">Отборочный Генератор        </a></p>
-<p><a href="/qualifying_q/9">Отборочный - очередь 9</a></p>
-<p><a href="/qualifying_q/10">Отборочный - очередь 10</a></p>
-<p><a href="/qualifying_q/11">Отборочный - очередь 11</a></p>
-<p><a href="/qualifying_q/12">Отборочный - очередь 12</a></p>
-<hr>
-<p><a href="/main">Раунд основного тура       </a></p>
-<p><a>Матч за 3 место    </a></p>
-<p><a>Финал              </a></p>
 
-</h3>
-<hr>
+<div class="container">
+    <h3 class="text-center">Отборочный</h3>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+        <a type="button" class="btn btn-link" href="/qualifying">Генератор</a>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+        <div class="btn">Очередь:</div>
+        <a type="button" class="btn btn-default" href="/qualifying_q/9">9</a>
+        <a type="button" class="btn btn-default" href="/qualifying_q/10">10</a>
+        <a type="button" class="btn btn-default" href="/qualifying_q/11">11</a>
+        <a type="button" class="btn btn-default" href="/qualifying_q/12">12</a>
+            </div>
+    </div>
+
+    <h3 class="text-center">Основной тур</h3>
+    <div class="row">
+        <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/main">Раунд основного тура</a>
+    </div>
+    <div class="row">
+        <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/main">Матч за 3 место</a>
+    </div>
+     <div class="row">
+         <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/main">Финал</a>
+    </div>
+</div>
 
 {% endblock %}

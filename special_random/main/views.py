@@ -31,9 +31,14 @@ def qualifying_d(request, diff):
     return {'diff':diff, "take": take}
 
 @render_to('qualifying_q.djhtml')
-def qualifying_q(request, diff, pk=1):
+def qualifying_q(request, diff, pk=False):
     take = QualTake.objects.get(diff=diff)
-    q = QualQueue.objects.filter(qual_r=take).all()[0]
+    q = QualQueue.objects.filter(qual_r=take).all()
+    if len(q) == 0:
+        return  {'diff':diff, "take": take}
+    q = q[0]
+    if pk:
+        q = QualQueue.objects.get(pk=pk)
     # try:
     #     q = QualQueue.objects.filter(qual_r=take, pk=pk).all()[0]
     # except:

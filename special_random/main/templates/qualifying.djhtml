@@ -2,16 +2,14 @@
 
 {% block content %}
 
-<h1 class="text-center supra">Отборочный</h1>
-<hr>
+<h1 class="text-center">Отборочный</h1>
 
-<h3 class="text-center supra2">
+<h3 class="text-center">
 <a href="{% url 'qualifying_d' 9 %}">9</a>
 <a href="{% url 'qualifying_d' 10 %}">10</a>
 <a href="{% url 'qualifying_d' 11 %}">11</a>
 <a href="{% url 'qualifying_d' 12 %}">12</a>
 </h3>
-<hr>
 
 
 

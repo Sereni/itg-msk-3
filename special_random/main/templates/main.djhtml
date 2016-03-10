@@ -2,20 +2,14 @@
 
 {% block content %}
 
-<!--<h1 class="text-center supra">Отборочный {{ diff }}</h1>-->
-<!--<hr>-->
-
 
 <div class="container">
     <ul class="thumbnails">
-        <!--<div class="row">-->
-               <!--{% cycle '<div class="row">' '' %}-->
         {%  for song in take.takeoption_set.all %}
 
                 {% if song.banned %}
-                    <!--<li class="span2 text-center">-->
                 {% else %}
-                    <li class="span6 text-center">
+                    <div class="col-md-6 text-center">
                     <div class="thumbnail">
                         <a href="{% url 'main' take.pk song.pk %}">
                             <img src="{{ song.song.banner.url }}">
@@ -24,13 +18,12 @@
 
 
                                         {% if song.banned %}
-    <!--<p class="lead text-center">{{ song.song.author }} - {{ song.song.name }} ({{ song.song.min_bpm }}-{{ song.song.max_bpm }})</p>-->
                 {% else %}
-    <p class="lead text-center">{{ song.song.author }} - {{ song.song.name }} ({{ song.song.min_bpm }}-{{ song.song.max_bpm }})</p>
+    <p class="lead text-center">{{ song.song.name }}</p>
 
 
                     </div>
-                </li>
+                </div>
         {% endif %}
         {% endfor %}
         <!--</div>-->
@@ -41,21 +34,23 @@
         {%  for song in take.takeoption_set.all %}
 
                 {% if song.banned %}
-                    <li class="span2 text-center">
+                    <div class="col-md-2 text-center">
                     <div class="thumbnail">
                         <a href="{% url 'main' take.pk song.pk %}">
                             <img src="{{ song.song.banner.url }}">
                         </a>
                     </div>
-                </li>
+                </div>
                 {% endif %}
         {% endfor %}
 
 
     </ul>
 </div>
-<hr>
-<div><a class="btn btn-success" href='{% url 'main_play' take.pk %}'>Играем!</a></div>
+
+<div class="row">
+    <a class="btn btn-success btn-lg col-md3 col-md-offset-5 text-center" href='{% url 'main_play' take.pk %}'>Играем!</a>
+</div>
 
 
 {% endblock %}
