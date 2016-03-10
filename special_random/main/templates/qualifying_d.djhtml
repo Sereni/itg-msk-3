@@ -2,8 +2,7 @@
 
 {% block content %}
 
-
-<div class="container">
+<div class="container" style="display: none;" id="effect">
     <ul class="thumbnails">
         {%  for song in take.songs.all %}
                 {% cycle '<div class="row">' '' '' %}
@@ -19,4 +18,12 @@
 </div>
 
 
+{% endblock %}
+
+{% block script %}
+  <script>
+  $(function() {
+    $( "#effect" ).show( "clip", {}, 500 );
+  });
+  </script>
 {% endblock %}

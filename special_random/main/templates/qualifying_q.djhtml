@@ -4,18 +4,18 @@
 
 
 <div class="container">
-    <div class="row">
-    <ul class="thumbnails">
-                <div class="col-md-12 text-center">
-                    <div class="img-thumbnail">
-                            <img src="{{ song.banner.url }}">
-    <p class="lead text-center">{{ song.name }}</p>
+    <div class="row" style="display: none;" id="effect1">
+        <ul class="thumbnails">
+                    <div class="col-md-12 text-center">
+                        <div class="img-thumbnail">
+                                <img src="{{ song.banner.url }}">
+        <p class="lead text-center">{{ song.name }}<!----></p>
+                        </div>
                     </div>
-                </div>
-    </ul>
+        </ul>
     </div>
 
-    <div class="row">
+    <div class="row" style="display: none;" id="effect2">
         {% if q.player_vs %}
                 <div class="col-md-3 col-md-offset-2">
         {% else %}
@@ -29,11 +29,11 @@
                 </div>
 
         {% if q.player_vs %}
-                <div class="col-md-1 col-md-offset-1">
+                <div class="col-md-1 col-md-offset-1" style="display: none;" id="effect3">
                    <h2>VS</h2>
                 </div>
 
-                <div class="col-md-3 ">
+                <div class="col-md-3" style="display: none;" id="effect4">
                     <div>
                             <img class="img-rounded" width="300px" height="300px" src="{{ q.player_vs.photo.url }}">
     <p class="lead text-center">{{ q.player_vs }}</p>
@@ -43,7 +43,7 @@
 
     </div>
     {% if next %}
-        <div class="row">
+        <div class="row" style="display: none;" id="effect5">
             <div class="col-md3 col-md-offset-5">
                 <h3>
             <a class="btn btn-lg btn-info" href="/qualifying_q/{{ diff }}/{{ next.pk }}">Затем</a>  {{ next.player}} {{ next.player_vs|default_if_none:"" }}
@@ -57,4 +57,22 @@
 
 
 
+{% endblock %}
+
+{% block script %}
+  <script>
+  $(function() {
+    $( "#effect1" ).show( "clip", {}, 200 );
+
+      setTimeout(function(){ $( "#effect2" ).show( "blind", {}, 300 ); }, 300);
+      setTimeout(function(){ $( "#effect3" ).show( "fadein", {}, 200 ); }, 600);
+      setTimeout(function(){ $( "#effect4" ).show( "blind", {}, 300 ); }, 1200);
+      setTimeout(function(){ $( "#effect5" ).show( "highlight", {}, 500 ); }, 1600);
+
+
+//    $( "#effect3" ).show( "clip", {}, 500 );
+//    $( "#effect4" ).show( "clip", {}, 500 );
+//    $( "#effect5" ).show( "clip", {}, 500 );
+  });
+  </script>
 {% endblock %}
