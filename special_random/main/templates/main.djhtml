@@ -5,45 +5,34 @@
 
 <div class="container">
     <ul class="thumbnails">
-        {%  for song in take.takeoption_set.all %}
-
-                {% if song.banned %}
-                {% else %}
-                    <div class="col-md-6 text-center">
+        <div class="row">
+        {% for song in take.takeoption_set.all %}
+            {% if not song.banned %}
+                <div class="col-md-6 animated-t text-center">
                     <div class="thumbnail">
                         <a href="{% url 'main' take.pk song.pk %}">
                             <img src="{{ song.song.banner.url }}">
                         </a>
-                {% endif %}
-
-
-                                        {% if song.banned %}
-                {% else %}
-    <p class="lead text-center">{{ song.song.name }}</p>
-
-
+                        <p class="lead text-center">{{ song.song.name }}</p>
                     </div>
                 </div>
-        {% endif %}
+            {% endif %}
         {% endfor %}
-        <!--</div>-->
-        <!--{% cycle '</div>' ''  %}-->
+        </div>
 
-
-
-        {%  for song in take.takeoption_set.all %}
-
-                {% if song.banned %}
-                    <div class="col-md-2 text-center">
+        <div class="row">
+        {% for song in take.takeoption_set.all %}
+            {% if song.banned %}
+                <div class="col-md-2 animated-t text-center">
                     <div class="thumbnail">
                         <a href="{% url 'main' take.pk song.pk %}">
                             <img src="{{ song.song.banner.url }}">
                         </a>
                     </div>
                 </div>
-                {% endif %}
+            {% endif %}
         {% endfor %}
-
+        </div>
 
     </ul>
 </div>
@@ -53,4 +42,19 @@
 </div>
 
 
+{% endblock %}
+
+{% block script %}
+<script>
+    $(function () {
+        $(".animated-t").click(function (event) {
+            var target = $(this);
+            event.preventDefault();
+
+            $(target).toggleClass('col-md-6 col-md-2')
+            $(target).find('p').toggle();
+            $.ajax(target.find('a')[0].href);
+        });
+    });
+</script>
 {% endblock %}

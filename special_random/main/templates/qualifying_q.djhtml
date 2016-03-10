@@ -68,11 +68,6 @@
       setTimeout(function(){ $( "#effect3" ).show( "fadein", {}, 200 ); }, 600);
       setTimeout(function(){ $( "#effect4" ).show( "blind", {}, 300 ); }, 1200);
       setTimeout(function(){ $( "#effect5" ).show( "highlight", {}, 500 ); }, 1600);
-
-
-//    $( "#effect3" ).show( "clip", {}, 500 );
-//    $( "#effect4" ).show( "clip", {}, 500 );
-//    $( "#effect5" ).show( "clip", {}, 500 );
   });
   </script>
 {% endblock %}
