@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center supra">Группа "{{ take.group }}"</h1>
+<h2 class="text-center supra">{{ take.songset }}</h2>
+<hr>
+
+<h3 class="text-center supra2">
+{% if player %}Трек исключает:  {{ player }}
+{% else %}Трек выбран
+{% endif %}
+</h3>
+<hr>
+
+<div class="container">
+    <ul class="thumbnails">
+        {%  for song in take.takeoption_set.all %}
+            {% if song.banned_by %}
+            {% else %}
+
+                {% cycle '<div class="row">' '' '' %}
+                <li class="span4 text-center">
+                    <div class="thumbnail">
+                        <a href="{% url 'real_random' take.pk song.song.pk player.pk %}">
+                            <img src="{{ song.song.banner.url }}">
+                        </a>
+                        <p class="lead text-center">{{ song.song.title }} ({{ song.song.lvl }}) {{ song.song.difficulty }} </p>
+                    </div>
+
+                </li>
+                {% cycle '' '' '</div>' %}
+
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+

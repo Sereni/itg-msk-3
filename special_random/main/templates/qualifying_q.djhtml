@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--<h1 class="text-center supra">Отборочный {{ diff }}</h1>-->
+<!--<hr>-->
+
+<div class="container">
+    <ul class="thumbnails">
+                <li class="span12 text-center">
+                    <div class="thumbnail">
+                            <img src="{{ song.banner.url }}">
+    <p class="lead text-center">{{ song.author }} - {{ song.name }} ({{ song.min_bpm }}-{{ song.max_bpm }})</p>
+                    </div>
+                </li>
+    </ul>
+
+    <ul class="thumbnails">
+        {% if q.player_vs %}
+                <li class="span5 text-center">
+        {% else %}
+                <li class="span12 text-center">
+        {% endif %}
+
+                    <div class="thumbnail">
+                            <img src="{{ q.player.photo.url }}">
+    <p class="lead text-center">{{ q.player }}</p>
+                    </div>
+                </li>
+
+        {% if q.player_vs %}
+                <li class="span2 text-center">
+                    <h2>VS</h2>
+                </li>
+
+                <li class="span5 text-center">
+                    <div class="thumbnail">
+                            <img src="{{ q.player_vs.photo.url }}">
+    <p class="lead text-center">{{ q.player_vs }}</p>
+                    </div>
+                </li>
+        {% endif %}
+
+    </ul>
+    {% if next %}
+        <hr>
+    <h3><a href="/qualifying_q/{{ diff }}/{{ next.pk }}">Готовятся:</a>  {{ next.player}} {{ next.player_vs|default_if_none:"" }}</h3>
+    {% endif %}
+
+</div>
+
+
+
+
+{% endblock %}

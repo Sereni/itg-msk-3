@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center supra">Группа: {{ group }}</h1>
+<h2 class="text-center supra">Игроки: {{ group.players.all|join:', ' }}</h2>
+<hr>
+
+<h3 class="text-center supra2">
+    {% if no_more_songs %}НЕ ХВАТАЕТ ТРЕКОВ{% endif %}
+    <form  method="post">
+            {% csrf_token %}
+
+          <p><input class="btn btn-primary btn-large" value='срандомить набор песен' type="submit"></p>
+    </form>
+    <hr>
+
+    {%  for take in takes %}
+        <p><a href="{%  url 'real_random' take.pk 'f' 'f' %}">{{ take }}</a> {% if take.is_finished %} (трек выбран - {{ take.finish_song }}){% endif %}
+    {%  endfor %}
+</h3>
+
+{% endblock %}

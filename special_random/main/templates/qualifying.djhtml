@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center supra">Отборочный</h1>
+<hr>
+
+<h3 class="text-center supra2">
+<a href="{% url 'qualifying_d' 9 %}">9</a>
+<a href="{% url 'qualifying_d' 10 %}">10</a>
+<a href="{% url 'qualifying_d' 11 %}">11</a>
+<a href="{% url 'qualifying_d' 12 %}">12</a>
+</h3>
+<hr>
+
+
+
+{% endblock %}

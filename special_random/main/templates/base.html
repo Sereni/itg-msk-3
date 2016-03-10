@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/main/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style>
+        .thumbnail{
+            border: 0px;
+        }
+        .bodyb {
+            background: url(/static/main/bg.jpg);
+            color: rgba(81, 234, 82, 0.75);
+            text-shadow: 1px 1px 2px black, 0 0 1em rgb(0, 0, 0);
+            font-family: fantasy;
+   }
+
+        .supra {
+            color: rgba(0, 0, 0, 0.75);
+            text-shadow: 1px 1px 2px rgb(65, 180, 55), 0 0 1em rgb(102, 255, 0);
+            font-family: fantasy;
+   }
+
+                .supra2 {
+            color: rgba(255, 255, 0, 0.75);
+            text-shadow: 1px 1px 2px black, 0 0 1em rgb(0, 0, 0);
+            font-family: fantasy;
+   }
+    </style>
+</head>
+
+<body class="bodyb">
+<!--<div><a class="btn btn-success" href='/'>Главная</a></div>-->
+
+{% block content %}{% endblock %}
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="/static/main/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

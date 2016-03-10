@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--<h1 class="text-center supra">Отборочный {{ diff }}</h1>-->
+<!--<hr>-->
+
+
+<div class="container">
+    <ul class="thumbnails">
+        {%  for song in take.songs.all %}
+                {% cycle '<div class="row">' '' '' %}
+                <li class="span12 text-center">
+                    <div class="thumbnail">
+                            <img src="{{ song.banner.url }}">
+    <p class="lead text-center">{{ song.author }} - {{ song.name }} ({{ song.min_bpm }}-{{ song.max_bpm }})</p>
+                    </div>
+                </li>
+                {% cycle '' '' '</div>' %}
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5594ddc2-db93-43e8-ab57-62736d5b7d07" name="virtualbox" url="http://127.0.0.1:8000">
+        <fileTransfer host="127.0.0.1" port="3022" accessType="SFTP" password="dffddfe3dfe4dfeedfe5dffddfeadfd9" username="msheldyakov">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

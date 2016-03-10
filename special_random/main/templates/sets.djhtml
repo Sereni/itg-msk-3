@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center supra">Выбор сета</h1>
+<hr>
+
+<h3 class="text-center supra2">
+{%  for set in sets %}
+    <p><a href="{% url 'set' set.pk %}">{{ set.title }}</a></p>
+{%  endfor %}
+</h3>
+<hr>
+
+{% endblock %}

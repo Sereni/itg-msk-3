@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center supra">{{ set }}</h1>
+<h2 class="text-center supra">Выбор группы</h2>
+<hr>
+
+<h3 class="text-center supra2">
+    {%  for group in groups %}
+        <p><a href="{% url 'random' set_pk group.pk %}">{{ group.title }} ({{ group.players.count }})</a></p>
+    {%  endfor %}
+</h3>
+
+{% endblock %}
