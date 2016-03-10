@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--<h1 class="text-center supra">Отборочный {{ diff }}</h1>-->
+<!--<hr>-->
+
+
+<div class="container">
+    <ul class="thumbnails">
+        <!--<div class="row">-->
+               <!--{% cycle '<div class="row">' '' %}-->
+        {%  for song in songs %}
+
+                {% if song.banned %}
+                    <!--<li class="span2 text-center">-->
+                {% else %}
+                    <li class="span10 text-center">
+                    <div class="thumbnail">
+                            <img src="{{ song.song.banner.url }}">
+                            <p class="lead text-center">{{ song.song.author }} - {{ song.song.name }} ({{ song.song.min_bpm }}-{{ song.song.max_bpm }})</p>
+
+                {% endif %}
+        {% endfor %}
+
+
+
+    </ul>
+</div>
+
+
+{% endblock %}

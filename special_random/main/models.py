@@ -38,33 +38,8 @@ class SongsSet(models.Model):
 
 
 
-# # тейк(take) - набор песен из сета. для этой группы выбор песен это рандом из сета минус отработанный тейк. для группы может быть несколько треков. скока надо
-# class SongTake(models.Model):
-#     songs = models.ManyToManyField(Song, through='TakeOption')
-#     songset = models.ForeignKey(SongsSet)
-#     group = models.ForeignKey(PlayersGroup)
-#
-#     @property
-#     def is_finished(self):
-#         if self.songs.all().filter(takeoption__banned_by__isnull=True).count() == 1:
-#             return True
-#         else:
-#             return False
-#
-#     @property
-#     def finish_song(self):
-#         return self.songs.all().filter(takeoption__banned_by__isnull=True).get()
-#
-#     def __unicode__(self):
-#         return unicode(u'{0.songset} {0.group}'.format(self))
 
-# class TakeOption(models.Model):
-#     song = models.ForeignKey(Song)
-#     songtake = models.ForeignKey(SongTake)
-#     banned_by = models.ForeignKey(Player, null=True, blank=True)
-#
-#     def __unicode__(self):
-#         return unicode(u'{0.song} {0.songtake}'.format(self))
+
 #
 # class ActiveTour(models.Model):
 #     title = models.CharField(max_length=200)
@@ -199,3 +174,33 @@ class QualQueue(models.Model):
 
     class Meta():
         ordering = ['pk']
+
+
+class TakeOption(models.Model):
+    song = models.ForeignKey(Track)
+    songtake = models.ForeignKey('SongTake')
+    banned = models.NullBooleanField(null=True, blank=True)
+#
+#     def __unicode__(self):
+#         return unicode(u'{0.song} {0.songtake}'.format(self))
+
+# # тейк(take) - набор песен из сета. для этой группы выбор песен это рандом из сета минус отработанный тейк. для группы может быть несколько треков. скока надо
+class SongTake(models.Model):
+    songs = models.ManyToManyField(Track, through='TakeOption')
+    # songs = models.ManyToManyField(Track)
+    # songset = models.ForeignKey(Songs,Set)
+    # group = models.ForeignKey(PlayersGroup)
+
+    @property
+    def is_finished(self):
+        if self.songs.all().filter(takeoption__banned_by__isnull=True).count() == 1:
+            return True
+        else:
+            return False
+
+    @property
+    def finish_song(self):
+        return self.songs.all().filter(takeoption__banned_by__isnull=True).get()
+
+    # def __unicode__(self):
+    #     return unicode(u'{0.songset} {0.group}'.format(self))

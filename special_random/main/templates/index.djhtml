@@ -7,14 +7,13 @@
 
 <h3 class="text-center supra2">
     <p><a></a></p>
-<p><a href="/qualifying">Отборочный         </a></p>
+<p><a href="/qualifying">Отборочный Генератор        </a></p>
 <p><a href="/qualifying_q/9">Отборочный - очередь 9</a></p>
 <p><a href="/qualifying_q/10">Отборочный - очередь 10</a></p>
 <p><a href="/qualifying_q/11">Отборочный - очередь 11</a></p>
 <p><a href="/qualifying_q/12">Отборочный - очередь 12</a></p>
-
-
-<p><a>Основной тур       </a></p>
+<hr>
+<p><a href="/main">Раунд основного тура       </a></p>
 <p><a>Матч за 3 место    </a></p>
 <p><a>Финал              </a></p>
 

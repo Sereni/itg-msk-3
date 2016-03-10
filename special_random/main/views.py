@@ -1,6 +1,6 @@
 # coding=utf-8
 from annoying.decorators import render_to
-from special_random.main.models import QualTake, Track, QualQueue, Player
+from special_random.main.models import QualTake, Track, QualQueue, Player, SongTake, TakeOption
 # from special_random.main.models import SongsSet, PlayersGroup, SongTake, TakeOption, Player, BanedSongs
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -33,7 +33,7 @@ def qualifying_d(request, diff):
 @render_to('qualifying_q.djhtml')
 def qualifying_q(request, diff, pk=1):
     take = QualTake.objects.get(diff=diff)
-    q = QualQueue.objects.filter(qual_r=take, pk=pk).all()[0]
+    q = QualQueue.objects.filter(qual_r=take).all()[0]
     # try:
     #     q = QualQueue.objects.filter(qual_r=take, pk=pk).all()[0]
     # except:
@@ -63,7 +63,44 @@ def qualifying_q(request, diff, pk=1):
 
     return {'diff':diff, "take": take, "song": q.song, "q":q, "next": next}
 
+@render_to('main.djhtml')
+def main(request,  pk=False, take_pk=False):
+    # если нет pk то генерим раунд
+    # раунд это объект к которому привязано куча песен, и куча вычеркнутых песен
+    if not pk:
+        take = SongTake()
+        take.save()
+# - Рандомим 10 треков: по два из [9, 10, 11, 12, 13].
+        for diff in [9, 10, 11, 12, 13]:
+            random = Track.objects.filter(diff=diff).order_by('?')[:2]
+            for item in random:
+                # take.songs.add(item)
+                op = TakeOption(song=item, songtake=take)
+                op.save()#             op = TakeOption(song=song, songtake=take)
+        return HttpResponseRedirect(
+            reverse('main', args=[take.pk]))
+    take = SongTake.objects.get(pk=pk)
+# - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
+    if take_pk:
+        ban = TakeOption.objects.get(pk=take_pk)
+        print 'baaaan'
+        if ban.banned is True:
+            ban.banned = False
+        else:
+            ban.banned = True
+        ban.save()
+#     return {'group': PlayersGroup.objects.get(pk=group_pk),
+#             'set': SongsSet.objects.get(pk=set_pk), 'takes': takes}
 
+    return {'take':take}
+
+@render_to('main_play.djhtml')
+def main_play(request,  pk=False):
+    take = SongTake.objects.get(pk=pk)
+# - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
+    songs = take.takeoption_set.order_by('?').all()
+
+    return {'take':take, 'songs': songs}
 #
 #
 # @render_to('set.djhtml')
