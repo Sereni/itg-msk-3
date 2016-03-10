@@ -19,7 +19,7 @@
 
                                         {% if song.banned %}
                 {% else %}
-    <p class="lead text-center">{{ song.song.name }}</p>
+    <p class="lead text-center">{{ song.song.name }}<<!---->/p>
 
 
                     </div>
