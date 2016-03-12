@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from special_random.main.models import SongsSet
 from django.core.files.base import ContentFile
 # from django.db import transaction
-
+import sys
 
 class Command(BaseCommand):
     args = '<set_filename> <Main|Finals>'
@@ -14,10 +14,13 @@ class Command(BaseCommand):
 
         if len(args) < 2:
             print '<set_filename> <Main|Finals>'
+            sys.exit()
 
         round = args[1]
         if round not in ('Main', 'Finals'):
             print """pack type not in ('Main', 'Finals')"""
+            sys.exit()
+
         sset = SongsSet(round=round)
         sset.title = args[0]
         sset.save()
