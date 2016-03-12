@@ -30,7 +30,7 @@
         <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/third">Матч за 3 место</a>
     </div>
      <div class="row">
-         <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/main">Финал</a>
+         <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/final">Финал</a>
     </div>
 </div>
 

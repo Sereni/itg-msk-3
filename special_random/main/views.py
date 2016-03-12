@@ -88,8 +88,8 @@ def main(request,  pk=False, take_pk=False):
 # - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
     if take_pk:
         ban = TakeOption.objects.get(pk=take_pk)
-        print 'baaaan'
         if ban.banned is True:
+            print 'baaaan'
             ban.banned = False
         else:
             ban.banned = True
@@ -103,7 +103,7 @@ def main(request,  pk=False, take_pk=False):
 def main_play(request,  pk=False):
     take = SongTake.objects.get(pk=pk)
 # - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
-    songs = take.takeoption_set.filter(track__songset__round='Main').order_by('?').all()
+    songs = take.takeoption_set.filter().order_by('?').all()
 
     return {'take':take, 'songs': songs}
 
@@ -128,7 +128,36 @@ def third(request,  pk=False, take_pk=False):
 # - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
     if take_pk:
         ban = TakeOption.objects.get(pk=take_pk)
-        print 'baaaan'
+        if ban.banned is True:
+            ban.banned = False
+        else:
+            ban.banned = True
+        ban.save()
+#     return {'group': PlayersGroup.objects.get(pk=group_pk),
+#             'set': SongsSet.objects.get(pk=set_pk), 'takes': takes}
+
+    return {'take':take}
+
+@render_to('main.djhtml')
+def final(request,  pk=False, take_pk=False):
+    # если нет pk то генерим раунд
+    # раунд это объект к которому привязано куча песен, и куча вычеркнутых песен
+    if not pk:
+        take = SongTake()
+        take.save()
+# - Рандомим 10 треков: по два из [9, 10, 11, 12, 13].
+        for diff in [9, 10, 11, 12, 13]:
+            random = Track.objects.filter(diff=diff, songset__round='Finals').order_by('?')[:2]
+            for item in random:
+                # take.songs.add(item)
+                op = TakeOption(song=item, songtake=take)
+                op.save()#             op = TakeOption(song=song, songtake=take)
+        return HttpResponseRedirect(
+            reverse('final', args=[take.pk]))
+    take = SongTake.objects.get(pk=pk)
+# - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
+    if take_pk:
+        ban = TakeOption.objects.get(pk=take_pk)
         if ban.banned is True:
             ban.banned = False
         else:
