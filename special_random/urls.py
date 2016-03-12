@@ -22,6 +22,10 @@ urlpatterns = patterns('',
     url(r'^main/(?P<pk>.*)/(?P<take_pk>.*)$', 'special_random.main.views.main', name="main"),
     url(r'^main_play/(?P<pk>.*)$', 'special_random.main.views.main_play', name="main_play"),
 
+    url(r'^third/$', 'special_random.main.views.third', name="third"),
+    url(r'^third/(?P<pk>.*)/$', 'special_random.main.views.third', name="third"),
+    url(r'^third/(?P<pk>.*)/(?P<take_pk>.*)$', 'special_random.main.views.third', name="third"),
+
     # url(r'^set/(?P<set_pk>.*)/$', 'special_random.main.views.set', name="set"),
     # url(r'^random/(?P<set_pk>.*)/(?P<group_pk>.*)/$', 'special_random.main.views.random', name="random"),
     # url(r'^real_random/(?P<take_pk>.*)/(?P<ban_pk>.*)/(?P<player_pk>.*)/$', 'special_random.main.views.real_random', name="real_random"),
