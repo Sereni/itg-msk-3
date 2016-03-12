@@ -29,8 +29,14 @@ class Player(models.Model):
 #     def __unicode__(self):
 #         return unicode(self.title)
 
+ROUNDS = (
+    ('Main', 'Main'),
+    ('Finals', 'Finals'),
+)
+
 class SongsSet(models.Model):
     title = models.CharField(max_length=200)
+    round = models.CharField(max_length=10, choices=ROUNDS)
     # songs = models.ManyToManyField(Song)
     #
     def __unicode__(self):

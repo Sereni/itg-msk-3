@@ -5,14 +5,20 @@ from django.core.files.base import ContentFile
 
 
 class Command(BaseCommand):
-    args = '<set_filename>'
+    args = '<set_filename> <Main|Finals>'
     help = 'Load the specified set'
 
     # @transaction.commit_manually()
     def handle(self, *args, **options):
         from special_random import k_utils
 
-        sset = SongsSet()
+        if len(args) < 2:
+            print '<set_filename> <Main|Finals>'
+
+        round = args[1]
+        if round not in ('Main', 'Finals'):
+            print """pack type not in ('Main', 'Finals')"""
+        sset = SongsSet(round=round)
         sset.title = args[0]
         sset.save()
 

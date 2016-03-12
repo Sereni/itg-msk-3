@@ -33,6 +33,10 @@ from .models import *
 class TrackAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(SongsSet)
+class SongsSetAdmin(admin.ModelAdmin):
+    pass
+
 @admin.register(QualTake)
 class QualTakeAdmin(admin.ModelAdmin):
     pass
