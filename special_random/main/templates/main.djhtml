@@ -13,7 +13,7 @@
                         <a href="{% url 'main' take.pk song.pk %}">
                             <img src="{{ song.song.banner.url }}">
                         </a>
-                        <p class="lead text-center">{{ song.song.name }}</p>
+                        <p class="lead text-center">{{ song.song.name }} – {{ song.song.diff }}</p>
                     </div>
                 </div>
             {% endif %}

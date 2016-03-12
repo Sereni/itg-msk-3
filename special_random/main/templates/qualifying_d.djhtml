@@ -9,7 +9,7 @@
                 <div class="col-md-12 text-center">
                     <div class="img-thumbnail">
                             <img src="{{ song.banner.url }}">
-    <p class="lead text-center">{{ song.name }}</p>
+    <p class="lead text-center">{{ song.name }}  – {{ song.diff }} </p>
                     </div>
                 </div>
                 {% cycle '' '' '</div>' %}
