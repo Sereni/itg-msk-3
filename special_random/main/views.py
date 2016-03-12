@@ -77,7 +77,7 @@ def main(request,  pk=False, take_pk=False):
         take.save()
 # - Рандомим 10 треков: по два из [9, 10, 11, 12, 13].
         for diff in [9, 10, 11, 12, 13]:
-            random = Track.objects.filter(diff=diff).order_by('?')[:2]
+            random = Track.objects.filter(diff=diff, songset__round='Main').order_by('?')[:2]
             for item in random:
                 # take.songs.add(item)
                 op = TakeOption(song=item, songtake=take)
@@ -103,7 +103,7 @@ def main(request,  pk=False, take_pk=False):
 def main_play(request,  pk=False):
     take = SongTake.objects.get(pk=pk)
 # - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
-    songs = take.takeoption_set.order_by('?').all()
+    songs = take.takeoption_set.filter(track__songset__round='Main').order_by('?').all()
 
     return {'take':take, 'songs': songs}
 #
