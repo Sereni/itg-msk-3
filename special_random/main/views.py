@@ -23,7 +23,7 @@ def qualifying(request):
 def qualifying_d(request, diff):
     take, created = QualTake.objects.get_or_create(diff=diff)
     if created:
-        tracks = Track.objects.filter(diff=diff).all().order_by('?')[:4]
+        tracks = Track.objects.filter(diff=diff, songset__round='Main').all().order_by('?')[:4]
         for track in tracks:
             take.songs.add(track)
         print tracks
