@@ -123,7 +123,7 @@ def third(request,  pk=False, take_pk=False):
                 op = TakeOption(song=item, songtake=take)
                 op.save()#             op = TakeOption(song=song, songtake=take)
         return HttpResponseRedirect(
-            reverse('main', args=[take.pk]))
+            reverse('third', args=[take.pk]))
     take = SongTake.objects.get(pk=pk)
 # - Эти 4 трека перемешиваем и выстраиваем по порядку (нужен наглядный порядок, список или что-нибудь)
     if take_pk:
