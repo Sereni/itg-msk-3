@@ -4,6 +4,7 @@ from special_random.main.models import QualTake, Track, QualQueue, Player, SongT
 # from special_random.main.models import SongsSet, PlayersGroup, SongTake, TakeOption, Player, BanedSongs
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 # @render_to('sets.djhtml')
 # def sets(request):
@@ -53,9 +54,29 @@ def qualifying_q(request, diff, pk=False):
 #
 # Найти все 4 трека.
 #
-# Создать QQ по правилам:
+
+
+
+
+
+#1)  Создать QQ по правилам:
+# как можно больше игроков должны играть в паре
 # Каждый следующий трек не похож на прошлый по возмоности
-# Игрок не играет несколько раз подряд.
+#2) Имя трека из генератора multiple choice :)
+        # или еще какую то возможность быстро выбрать какие песни игрок выбрал, и кто не выбрал ;)
+#3) Сделать без анимации. Переключателем например :) Чтоб посмотретьчо как
+#4) Показывать очередь для финала и раундов. Просто кто с кем, кто потом. Без трека
+#5) Если нет фото игрока - показывать дефолт лого. Его загрузят отдельно
+#6) Загружать игроков и фото из файла         Zack,photos/zack.jpg
+# Kelly Kato,photos/kelly.jpg
+# SailorMoon,photos/default.png
+# 7) Фича показывать фотку двоих игроков как одну.
+
+                # деньгами за то что есть свободное время в любой момент. и есть время жить
+
+
+
+
 # Делать список чойсов. Ставить ему скор. Выбирать лучший по скору.
 
 
@@ -97,7 +118,7 @@ def main(request,  pk=False, take_pk=False):
 #     return {'group': PlayersGroup.objects.get(pk=group_pk),
 #             'set': SongsSet.objects.get(pk=set_pk), 'takes': takes}
 
-    return {'take':take}
+    return {'take':take, 'with_animations': settings.WITH_ANIMATION}
 
 @render_to('main_play.djhtml')
 def main_play(request,  pk=False):
@@ -136,7 +157,7 @@ def third(request,  pk=False, take_pk=False):
 #     return {'group': PlayersGroup.objects.get(pk=group_pk),
 #             'set': SongsSet.objects.get(pk=set_pk), 'takes': takes}
 
-    return {'take':take}
+    return {'take':take, 'with_animations': settings.WITH_ANIMATION}
 
 @render_to('main.djhtml')
 def final(request,  pk=False, take_pk=False):
@@ -166,7 +187,7 @@ def final(request,  pk=False, take_pk=False):
 #     return {'group': PlayersGroup.objects.get(pk=group_pk),
 #             'set': SongsSet.objects.get(pk=set_pk), 'takes': takes}
 
-    return {'take':take}
+    return {'take':take, 'with_animations': settings.WITH_ANIMATION}
 #
 #
 # @render_to('set.djhtml')

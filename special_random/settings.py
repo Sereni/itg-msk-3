@@ -45,7 +45,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/msheldyakov/workspace/random/special_random/static/media/'
+MEDIA_ROOT = '/usr/src/app/static/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -56,7 +56,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/msheldyakov/temp/static/'
+STATIC_ROOT = '/usr/src/app/deploy/static'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -148,3 +148,6 @@ LOGGING = {
         },
     }
 }
+
+
+WITH_ANIMATION = True # bool

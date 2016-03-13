@@ -45,6 +45,7 @@
 {% endblock %}
 
 {% block script %}
+    {%  if with_animation %}
 <script>
     $(function () {
         $(".animated-t").click(function (event) {
@@ -57,4 +58,5 @@
         });
     });
 </script>
+    {% endif %}
 {% endblock %}
