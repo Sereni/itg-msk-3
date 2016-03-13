@@ -1,0 +1,15 @@
+{
+  "Volumes" : { },
+  "ExposedPorts" : {
+             "8000/tcp": {}
+            },
+  "HostConfig" : {
+    "Binds" : [ ],
+    "PortBindings" : {
+      "8000/tcp" : [ {
+        "HostIp" : "",
+        "HostPort" : "8001"
+      } ]
+    }
+  }
+}

@@ -6,11 +6,10 @@ python manage.py migrate
 python manage.py createsuperuser --username root --email root@root.com --noinput
 python manage.py changepassword root
 
-python manage.py fake_cats
+python manage.py load_players photos/players.csv
 
 #python manage.py setloader set1.txt
-python manage.py setloader ITG\ Moscow\ Tournament\ 3/ Main
-python manage.py setloader Finals/ Finals
+python manage.py setloader Main Main
+python manage.py setloader Finals Finals
 
-
- while true; do python manage.py runserver 0.0.0.0:8000; sleep 2; done
+# while true; do python manage.py runserver 0.0.0.0:8000; sleep 2; done
