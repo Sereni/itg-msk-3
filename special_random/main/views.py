@@ -1,6 +1,6 @@
 # coding=utf-8
 from annoying.decorators import render_to
-from special_random.main.models import QualTake, Track, QualQueue, Player, SongTake, TakeOption
+from special_random.main.models import QualTake, Track, QualQueue, Player, SongTake, TakeOption, PlayerQualTake, EasterEggPlayer
 # from special_random.main.models import SongsSet, PlayersGroup, SongTake, TakeOption, Player, BanedSongs
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -27,7 +27,11 @@ def qualifying_d(request, diff):
         tracks = Track.objects.filter(diff=diff, songset__round='Main').all().order_by('?')[:4]
         for track in tracks:
             take.songs.add(track)
-        print tracks
+
+        for player in Player.objects.all():
+            PlayerQualTake.objects.get_or_create(player=player)
+                                                 # , qual_r=take)
+        # print tracks
 
     return {'diff':diff, "take": take}
 
@@ -36,40 +40,98 @@ def qualifying_q(request, diff, pk=False):
     take = QualTake.objects.get(diff=diff)
     q = QualQueue.objects.filter(qual_r=take).all()
     if len(q) == 0:
-        return  {'diff':diff, "take": take}
+        queue = []
+
+        players = Player.objects.all()
+        for player in players:
+            p_t = PlayerQualTake.objects.get(player=player)
+            for track in p_t.song.filter(diff=diff):
+                queue.append((track, player, None))
+
+        # len queue = кол-во игроков
+        # [(<Track: Dustup (9)>, <Player: Pewpew>, None),
+        #  (<Track: Hot Air Balloon (9)>, <Player: Neko Atsume>, None),
+        #  (<Track: Dustup (9)>, <Player: AmikPusheen>, None),
+        #  (<Track: Dustup (9)>, <Player: NoPhotoTest>, None)]
+        import random
+        random.shuffle(queue)
+
+        # как можно больше игроков должны играть в паре
+        def reduce_vs(queue):
+            not_full = filter(lambda x: not x[2], queue)
+            # print not_full
+            for item in not_full:
+                can_merge = filter(lambda x: x[0] == item[0],
+                                   filter(lambda x: x[1] != item[1], not_full) # filter self
+                                   )
+                if len(can_merge) > 0:
+                    merge = can_merge[0]
+                    queue.remove(item)
+                    queue.remove(merge)
+                    queue.append((
+                        item[0],
+                        item[1],
+                        merge[1]
+                    ))
+                    return queue, True
+            return queue, False
+
+        recall = True
+        while recall:
+            queue, recall = reduce_vs(queue)
+
+        queue.reverse()
+
+        #  # Каждый следующий трек не похож на прошлый по возмоности
+        best_n = len(queue)
+        import copy
+        best = copy.copy(queue)
+        from itertools import permutations, groupby
+        for give_me_a_try in permutations(queue):
+            track_seq = map(lambda x: x[0], give_me_a_try)
+            n = max([len(list(group)) for key, group in groupby(track_seq)])
+            if n < best_n:
+                best = give_me_a_try
+                best_n = n
+            if best_n == 1:
+                break
+
+        queue = best
+
+        current = False
+        for object in queue:
+            q = QualQueue(song=object[0], qual_r=take, player=object[1])
+            if object[2]:
+                q.player_vs = object[2]
+            if current:
+                q.prev = current
+            q.save()
+            current = q
+
+        return HttpResponseRedirect(
+            reverse('qualifying_q', args=[diff]))
+
     q = q[0]
     if pk:
         q = QualQueue.objects.get(pk=pk)
-    # try:
-    #     q = QualQueue.objects.filter(qual_r=take, pk=pk).all()[0]
-    # except:
-    #     qq = QualQueue(qual_r=take, player=Player.objects.get(pk=1), player_vs=Player.objects.get(pk=2), song=Track.objects.get(pk=1))
-    #     qq.save()
-    #
-    #     qq2 = QualQueue(qual_r=take, player=Player.objects.get(pk=3), song=Track.objects.get(pk=2), prev=qq)
-    #     qq2.save()
-    #
-    #     q = QualQueue.objects.filter(qual_r=take).all()[0]
-# Найти всех кто в эту сложноть выбрали треки. И их выборы.
-#
-# Найти все 4 трека.
-#
-
-
-
-
-
-# Делать список чойсов. Ставить ему скор. Выбирать лучший по скору.
-
-
-# Потом нужно выбрать так чтобы чуваки играли парами. Но не один чувак подряд много раз.
-# Условия такие: как можно больше игроков должны играть в паре, чтобы отбор прошёл быстрее. Желательно, чтобы треки чередовались: например, если только что играли BlaBlaBla, лучше следующим поставить что-то другое, чтоб зрители не скучали. Порядок должен быть хотя бы как-то похож на рандом, чтобы какие-то чуваки не играли постоянно в начале, а какие-то в конце.
 
     next = QualQueue.objects.filter(prev=q).all()
     if len(next)>0:
         next = next[0]
 
-    return {'diff':diff, "take": take, "song": q.song, "q":q, "next": next}
+    all_easter = EasterEggPlayer.objects.all()
+    players = {}
+
+    def get_key(player, player_vs):
+        return ' '.join(map(
+            lambda x: str(x), sorted([player, player_vs])
+        ))
+    for easter in all_easter:
+        players[get_key(easter.player.pk, easter.player_vs.pk)] = easter
+
+    one_photo = players.get(get_key(q.player.pk, q.player_vs.pk), False)
+
+    return {'diff':diff, "take": take, "song": q.song, "q":q, "next": next, "one_photo": one_photo}
 
 @render_to('main.djhtml')
 def main(request,  pk=False, take_pk=False):

@@ -10,6 +10,15 @@ class Player(models.Model):
 
     def __unicode__(self):
         return unicode(self.username)
+
+class EasterEggPlayer(models.Model):
+    player = models.ForeignKey(Player, related_name='e1+')
+    player_vs = models.ForeignKey(Player, related_name='e2+')
+    photo = models.ImageField(upload_to='photos', null=True, blank=True)
+
+    def __unicode__(self):
+        return unicode(self.player.username + ' ' + self.player_vs.username)
+#
 #
 # # группа. скока хошь групп. скока хошь людей
 # class PlayersGroup(models.Model):
@@ -104,6 +113,8 @@ class Track(models.Model):
     diff = models.IntegerField()
     banner = models.ImageField(upload_to='banners', null=True, blank=True)
 
+    class Meta:
+        ordering = ['diff', 'name']
 
 #
 # class Stepchart(models.Model):
@@ -159,13 +170,22 @@ class QualTake(models.Model):
     def __str__(self):
         return '%s' % (self.diff)
 
+def get_qual_tracks():
+    quals = QualTake.objects.order_by('-diff').all()
+    pks = []
+    for qual in quals:
+        pks += qual.songs.values_list('pk')
+    # print pks
+    return {'pk__in': map(lambda x: x[0], pks) }
+
 class PlayerQualTake(models.Model):
-    song = models.ForeignKey(Track)
-    qual_r = models.ForeignKey(QualTake)
+    song = models.ManyToManyField(Track, null=True, blank=True, limit_choices_to=get_qual_tracks)
+    # qual_r = models.ForeignKey(QualTake)
     player = models.ForeignKey(Player)
 
     def __str__(self):
-        return '%s - %s - %s' % (self.qual_r, self.player, self.song.name)
+        return '%s - %s' % (self.player, len(self.song.all()))
+        # return '%s - %s - %s' % (self.qual_r, self.player, len(self.song.all()))
 
 class QualQueue(models.Model):
     song = models.ForeignKey(Track)
