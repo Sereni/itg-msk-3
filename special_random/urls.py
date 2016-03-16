@@ -17,6 +17,10 @@ urlpatterns = patterns('',
     url(r'^qualifying_q/(?P<diff>.*)/(?P<pk>.*)/$', 'special_random.main.views.qualifying_q', name="qualifying_q"),
     url(r'^qualifying_q/(?P<diff>.*)/$', 'special_random.main.views.qualifying_q', name="qualifying_q"),
 
+    url(r'^main_q/(?P<pk>.*)/$', 'special_random.main.views.main_q', name="main_q"),
+    url(r'^main_q/$', 'special_random.main.views.main_q', name="main_q"),
+
+
     url(r'^main/$', 'special_random.main.views.main', name="main"),
     url(r'^main/(?P<pk>.*)/$', 'special_random.main.views.main', name="main"),
     url(r'^main/(?P<pk>.*)/(?P<take_pk>.*)$', 'special_random.main.views.main', name="main"),

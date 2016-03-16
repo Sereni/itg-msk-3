@@ -1,6 +1,6 @@
 # coding=utf-8
 from annoying.decorators import render_to
-from special_random.main.models import QualTake, Track, QualQueue, Player, SongTake, TakeOption, PlayerQualTake, EasterEggPlayer
+from special_random.main.models import QualTake, Track, QualQueue, Player, SongTake, TakeOption, PlayerQualTake, EasterEggPlayer, MainQueue
 # from special_random.main.models import SongsSet, PlayersGroup, SongTake, TakeOption, Player, BanedSongs
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -134,6 +134,39 @@ def qualifying_q(request, diff, pk=False):
         one_photo = players.get(get_key(q.player.pk, q.player_vs.pk), False)
 
     return {'diff':diff, "take": take, "song": q.song, "q":q, "next": next, "one_photo": one_photo}
+
+
+@render_to('main_q.djhtml')
+def main_q(request, pk=False):
+    q = MainQueue.objects.filter().all()
+
+    if len(q) == 0:
+        return {}
+    q = q[0]
+    if pk:
+        q = MainQueue.objects.get(pk=pk)
+
+    next = MainQueue.objects.filter(prev=q).all()
+    if len(next)>0:
+        next = next[0]
+
+    all_easter = EasterEggPlayer.objects.all()
+    players = {}
+
+    def get_key(player, player_vs):
+        return ' '.join(map(
+            lambda x: str(x), sorted([player, player_vs])
+        ))
+    for easter in all_easter:
+        players[get_key(easter.player.pk, easter.player_vs.pk)] = easter
+
+    one_photo = False
+    if q.player_vs:
+        one_photo = players.get(get_key(q.player.pk, q.player_vs.pk), False)
+
+    return {"q":q, "next": next, "one_photo": one_photo}
+
+
 
 @render_to('main.djhtml')
 def main(request,  pk=False, take_pk=False):

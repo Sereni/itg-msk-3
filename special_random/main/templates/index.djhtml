@@ -26,6 +26,7 @@
     <h3 class="text-center">Основной тур</h3>
     <div class="row">
         <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/main">Раунд основного тура</a>
+        <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/main_q">Очередь</a>
     </div>
     <div class="row">
         <a type="button" class="btn btn-link col-md-4 col-md-offset-4" href="/third">Матч за 3 место</a>

@@ -180,7 +180,7 @@ def get_qual_tracks():
 
 class PlayerQualTake(models.Model):
     song = models.ManyToManyField(Track, null=True, blank=True, limit_choices_to=get_qual_tracks)
-    # qual_r = models.ForeignKey(QualTake)
+    qual_r = models.ForeignKey(QualTake)
     player = models.ForeignKey(Player)
 
     def __str__(self):
@@ -201,6 +201,16 @@ class QualQueue(models.Model):
     class Meta():
         ordering = ['pk']
 
+class MainQueue(models.Model):
+    player = models.ForeignKey(Player, related_name='3+')
+    player_vs = models.ForeignKey(Player, related_name='4+',null=True, blank=True)
+    prev = models.ForeignKey("self", null=True, blank=True)
+
+    def __str__(self):
+        return '%s vs %s (%s)' % (self.player, self.player_vs, self.prev)
+
+    class Meta():
+        ordering = ['pk']
 
 class TakeOption(models.Model):
     song = models.ForeignKey(Track)

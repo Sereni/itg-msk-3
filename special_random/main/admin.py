@@ -59,6 +59,11 @@ class QualTakeAdmin(admin.ModelAdmin):
     pass
     # form = QualTakeAdminForm
 
+@admin.register(MainQueue)
+class MainQueueAdmin(admin.ModelAdmin):
+    pass
+    # form = QualTakeAdminForm
+
 @admin.register(PlayerQualTake)
 class PlayerQualTakeAdmin(admin.ModelAdmin):
     pass
