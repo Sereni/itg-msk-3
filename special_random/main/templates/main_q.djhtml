@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row" style="display: none;" id="effect1">
+        <ul class="thumbnails">
+                    <div class="col-md-12 text-center">
+                        <div class="img-thumbnail">
+                                <img src="{{ song.banner.url }}">
+        <p class="lead text-center">{{ song.name }} – {{ song.diff }}<!----></p>
+                        </div>
+                    </div>
+        </ul>
+    </div>
+
+    {%  if one_photo %}
+        <div class="col-md-4 col-md-offset-4 text-center">
+                <div>
+                            <img class="img-rounded" src="{{ one_photo.photo.url }}">
+    <p class="lead text-center">{{ q.player }} VS {{ q.player_vs }}</p>
+                    </div>
+                </div>
+    {%  else %}
+    <div class="row" style="display: none;" id="effect2">
+        {% if q.player_vs %}
+                <div class="col-md-3 col-md-offset-2">
+        {% else %}
+                <div class="col-md-4 col-md-offset-4 text-center">
+        {% endif %}
+
+                    <div>
+                            <img class="img-rounded" height="450px" src="{{ q.player.photo.url }}">
+    <p class="lead text-center">{{ q.player }}</p>
+                    </div>
+                </div>
+
+        {% if q.player_vs %}
+                <div class="col-md-1 col-md-offset-1" style="display: none;" id="effect3">
+                   <h2>VS</h2>
+                </div>
+
+                <div class="col-md-3" style="display: none;" id="effect4">
+                    <div>
+                            <img class="img-rounded" height="450px" src="{{ q.player_vs.photo.url }}">
+    <p class="lead text-center">{{ q.player_vs }}</p>
+                    </div>
+                </div>
+        {% endif %}
+
+    </div>
+    {% if next %}
+        <div class="row" style="display: none;" id="effect5">
+            <div class="col-md3 col-md-offset-5">
+                <h3>
+            <a class="btn btn-lg btn-info" href="/qualifying_q/{{ diff }}/{{ next.pk }}">Готовятся:</a>  {{ next.player}}{% if next.player_vs %} и {{ next.player_vs|default_if_none:"" }} {% endif %}
+                    </h3>
+            </div>
+        </div>
+    {% endif %}
+    {% endif %}
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+  <script>
+  $(function() {
+    $( "#effect1" ).show( "clip", {}, 200 );
+
+      setTimeout(function(){ $( "#effect2" ).show( "blind", {}, 300 ); }, 300);
+      setTimeout(function(){ $( "#effect3" ).show( "fadein", {}, 200 ); }, 600);
+      setTimeout(function(){ $( "#effect4" ).show( "blind", {}, 300 ); }, 1200);
+      setTimeout(function(){ $( "#effect5" ).show( "highlight", {}, 500 ); }, 1600);
+  });
+  </script>
+{% endblock %}
