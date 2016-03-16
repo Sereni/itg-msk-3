@@ -31,7 +31,7 @@
         {% endif %}
 
                     <div>
-                            <img class="img-rounded" src="{{ q.player.photo.url }}">
+                            <img class="img-rounded" height="450px" src="{{ q.player.photo.url }}">
     <p class="lead text-center">{{ q.player }}</p>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
 
                 <div class="col-md-3" style="display: none;" id="effect4">
                     <div>
-                            <img class="img-rounded" src="{{ q.player_vs.photo.url }}">
+                            <img class="img-rounded" height="450px" src="{{ q.player_vs.photo.url }}">
     <p class="lead text-center">{{ q.player_vs }}</p>
                     </div>
                 </div>
