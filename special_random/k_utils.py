@@ -94,9 +94,9 @@ def process_track(path, sset):
             track.banner.save('{0}'.format(banner),
                                            ContentFile(binary))
         except:
-            if banner is not None:
+            if banner is  None:
                 print 'mew :( ', baner_file, path
-            track.delete()
+                track.delete()
 
         # print charts
         # for chart in charts:

@@ -50,6 +50,7 @@
         {% endif %}
 
     </div>
+
     {% if next %}
         <div class="row" style="display: none;" id="effect5">
             <div class="col-md3 col-md-offset-5">
