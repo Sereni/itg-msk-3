@@ -180,7 +180,7 @@ def get_qual_tracks():
 
 class PlayerQualTake(models.Model):
     song = models.ManyToManyField(Track, null=True, blank=True, limit_choices_to=get_qual_tracks)
-    qual_r = models.ForeignKey(QualTake)
+    # qual_r = models.ForeignKey(QualTake)
     player = models.ForeignKey(Player)
 
     def __str__(self):
