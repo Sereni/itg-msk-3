@@ -129,6 +129,7 @@ def qualifying_q(request, diff, pk=False):
     for easter in all_easter:
         players[get_key(easter.player.pk, easter.player_vs.pk)] = easter
 
+    one_photo = False
     if q.player_vs:
         one_photo = players.get(get_key(q.player.pk, q.player_vs.pk), False)
 
