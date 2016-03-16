@@ -195,7 +195,7 @@ class QualQueue(models.Model):
     prev = models.ForeignKey("self", null=True, blank=True)
     score = models.CharField(null=True, blank=True, max_length=100)
 
-    def __str__(self):
+    def __unicode__(self):
         return '%s: %s vs %s (%s)' % (self.qual_r, self.player, self.player_vs, self.song.name)
 
     class Meta():
