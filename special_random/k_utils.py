@@ -93,10 +93,11 @@ def process_track(path, sset):
             binary = open(baner_file).read()
             track.banner.save('{0}'.format(banner),
                                            ContentFile(binary))
-        except:
-            if banner is  None:
+        except Exception as e:
+            print type(e).__name__, e.args
+            if banner is not None:
                 print 'mew :( ', baner_file, path
-                track.delete()
+            track.delete()
 
         # print charts
         # for chart in charts:
