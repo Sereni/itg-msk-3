@@ -6,7 +6,7 @@
 <div class="container">
 
     {%  if one_photo %}
-        <div class="col-md-6 col-md-offset-2 text-center">
+        <div class="col-md-6 col-md-offset-3 text-center">
                 <div>
                             <img class="img-rounded" src="{{ one_photo.photo.url }}">
     <p class="lead text-center">{{ q.player }} VS {{ q.player_vs }}</p>
@@ -38,17 +38,17 @@
                     </div>
                 </div>
         {% endif %}
-
+    {% endif %}
     </div>
     {% if next %}
         <div class="row" style="display: none;" id="effect5">
             <div class="col-md3 col-md-offset-5">
                 <h3>
-            <a class="btn btn-lg btn-info" href="/main_q/{{ diff }}/{{ next.pk }}">Готовятся:</a>  {{ next.player}}{% if next.player_vs %} и {{ next.player_vs|default_if_none:"" }} {% endif %}
+            <a class="btn btn-lg btn-info" href="/main_q/{{ next.pk }}">Готовятся:</a>  {{ next.player}}{% if next.player_vs %} и {{ next.player_vs|default_if_none:"" }} {% endif %}
                     </h3>
             </div>
         </div>
-    {% endif %}
+
     {% endif %}
 
 </div>
