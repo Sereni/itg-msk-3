@@ -11,6 +11,9 @@ class Player(models.Model):
     def __unicode__(self):
         return unicode(self.username)
 
+    class Meta:
+        ordering = ['username']
+
 class EasterEggPlayer(models.Model):
     player = models.ForeignKey(Player, related_name='e1+')
     player_vs = models.ForeignKey(Player, related_name='e2+')
@@ -186,6 +189,10 @@ class PlayerQualTake(models.Model):
     def __str__(self):
         return '%s - %s' % (self.player, len(self.song.all()))
         # return '%s - %s - %s' % (self.qual_r, self.player, len(self.song.all()))
+
+    class Meta:
+        ordering = ['player__username']
+
 
 class QualQueue(models.Model):
     song = models.ForeignKey(Track)
